@@ -1,21 +1,26 @@
 # Memorilo
 
-**TODO: Add description**
+A simple elixir OTP project for exercise DynamicSupervisor and Cron concepts.
+The app let you schedule messages and keeps them in GenServer worker states until the time they should be delivered. Them they are printed and the worker dies.
 
-## Installation
+## How to run
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `memorilo` to your list of dependencies in `mix.exs`:
-
+1. install dependencies:
 ```elixir
-def deps do
-  [
-    {:memorilo, "~> 0.1.0"}
-  ]
-end
+mix deps.get
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/memorilo>.
+2. start application
+```elixir
+iex -S mix
+```
 
+3. monitor the application
+```elixir
+:observer.start()
+```
+
+4. send a dummy message
+```elixir
+Memorilo.send_dummy_message
+```
