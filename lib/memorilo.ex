@@ -2,17 +2,19 @@ defmodule Memorilo do
   @moduledoc """
   Documentation for `Memorilo`.
   """
+  alias Memorilo.Post.Supervisor
+  alias Memorilo.Post.Shipping
+  @one_minute 1 * 60
 
-  @doc """
-  Hello world.
+  def schedule_dummy_message() do
+    with {:ok, now} <- DateTime.now(default_time_zone()),
+      delivery_time <- DateTime.add(now, @one_minute, :second),
+      shipping <- Shipping.new("me", "you", "Not a secret message", delivery_time) do
+      Supervisor.schedule(shipping)
+    end
+  end
 
-  ## Examples
-
-      iex> Memorilo.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  defp default_time_zone do
+    Application.get_env(:memorilo, :default_time_zone)
   end
 end
