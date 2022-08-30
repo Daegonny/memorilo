@@ -4,6 +4,7 @@ defmodule Memorilo.Post.Worker do
   """
   use GenServer, restart: :transient
   alias Memorilo.Post.{Utils, Message, Shipping}
+  alias Memorilo.Mail.Mailer
 
   def start_link(%Shipping{} = shipping) do
     GenServer.start_link(__MODULE__, shipping)
@@ -23,7 +24,9 @@ defmodule Memorilo.Post.Worker do
     {:noreply, shipping}
   end
 
-  def handle_info({:deliver, %Message{} = message}, _state) do
+  def handle_info({:deliver, %Message{to: to, content: content} = message}, _state) do
+    mail_message = Mailer.build_message(to, "Memori", content)
+    Mailer.send(mail_message)
     IO.puts("#{inspect(self())} sends #{inspect(message)}")
     {:stop, :normal, :ok}
   end

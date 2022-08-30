@@ -6,10 +6,10 @@ defmodule Memorilo do
   alias Memorilo.Post.Shipping
   @one_minute 1 * 60
 
-  def schedule_dummy_message() do
+  def schedule_dummy_message(to, content) do
     with {:ok, now} <- DateTime.now(default_time_zone()),
       delivery_time <- DateTime.add(now, @one_minute, :second),
-      shipping <- Shipping.new("me", "you", "Not a secret message", delivery_time) do
+      shipping <- Shipping.new("me", to, content, delivery_time) do
       Supervisor.schedule(shipping)
     end
   end
