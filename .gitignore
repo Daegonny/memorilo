@@ -24,3 +24,7 @@ memorilo-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+/config/dev.exs
+email.txt
+client_secret.json

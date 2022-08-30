@@ -22,7 +22,12 @@ defmodule Memorilo.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tzdata, "~>1.1"}
+      {:tzdata, "~>1.1"},
+      {:mail, "~> 0.2.3"},
+      {:tesla, "~> 1.4"},
+      {:jason, ">= 1.0.0"},
+      {:hackney, "~> 1.18"},
+      {:swoosh, "~> 1.6"}
     ]
   end
 end
