@@ -1,4 +1,5 @@
 defmodule Memorilo.Mail.Mailer do
+  @moduledoc false
   use Swoosh.Mailer, otp_app: :memorilo
   import Swoosh.Email
   alias Memorilo.Service.GoogleApi
