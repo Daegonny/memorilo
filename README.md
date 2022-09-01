@@ -1,7 +1,7 @@
 # Memorilo
 
 A simple elixir OTP project for exercise DynamicSupervisor and Cron concepts.
-The app let you schedule messages and keeps them in GenServer worker states until the time they should be delivered. Them they are printed and the worker dies.
+The app let you schedule messages and keeps them in GenServer worker states until the time they should be delivered. Then they are printed and the worker dies.
 
 ## How to run
 
