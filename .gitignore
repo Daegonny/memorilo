@@ -26,5 +26,6 @@ memorilo-*.tar
 /tmp/
 
 /config/dev.exs
+/config/test.exs
 email.txt
 client_secret.json
