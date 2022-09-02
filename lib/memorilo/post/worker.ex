@@ -3,25 +3,25 @@ defmodule Memorilo.Post.Worker do
   Schedule message and publish then at deadline
   """
   use GenServer, restart: :transient
-  alias Memorilo.Post.{Utils, Message, Shipping}
+  alias Memorilo.Post.{Utils, Message, Delivery}
   alias Memorilo.Mail.Mailer
 
-  def start_link(%Shipping{} = shipping) do
-    GenServer.start_link(__MODULE__, shipping)
+  def start_link(%Delivery{} = delivery) do
+    GenServer.start_link(__MODULE__, delivery)
   end
 
   @impl true
-  def init(%Shipping{} = shipping) do
+  def init(%Delivery{} = delivery) do
     send(self(), :schedule)
-    {:ok, shipping}
+    {:ok, delivery}
   end
 
   @impl true
-  def handle_info(:schedule, %Shipping{message: message, delivery_time: delivery_time} = shipping) do
+  def handle_info(:schedule, %Delivery{message: message, delivery_time: delivery_time} = delivery) do
     wating_time_in_ms = Utils.compute_waiting_time_in_ms(delivery_time)
     :timer.send_after(wating_time_in_ms, {:deliver, message})
     IO.puts("#{inspect(self())} scheduled a message to #{delivery_time}")
-    {:noreply, shipping}
+    {:noreply, delivery}
   end
 
   def handle_info({:deliver, %Message{to: to, content: content} = message}, _state) do

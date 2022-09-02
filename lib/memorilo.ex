@@ -8,14 +8,14 @@ defmodule Memorilo do
   """
 
   alias Memorilo.Post.Supervisor
-  alias Memorilo.Post.Shipping
+  alias Memorilo.Post.Delivery
   @one_minute 1 * 60
 
-  def schedule_dummy_message(to, content) do
+  def schedule_message(subject, content, to) do
     with {:ok, now} <- DateTime.now(default_time_zone()),
       delivery_time <- DateTime.add(now, @one_minute, :second),
-      shipping <- Shipping.new("me", to, content, delivery_time) do
-      Supervisor.schedule(shipping)
+      delivery <- Delivery.new(subject, content, to, delivery_time) do
+      Supervisor.schedule(delivery)
     end
   end
 

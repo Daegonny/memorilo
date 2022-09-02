@@ -2,13 +2,13 @@ defmodule Memorilo.Post.Message do
   @moduledoc """
   Defines a message struct
   """
-  defstruct from: nil, to: nil, content: nil
+  defstruct subject: nil, content: nil, to: nil
 
-  def new(from, to, content) do
+  def new(subject, content, to) do
     %__MODULE__{
-      from: from,
+      subject: subject,
+      content: content,
       to: to,
-      content: content
     }
   end
 end

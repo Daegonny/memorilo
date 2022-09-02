@@ -5,10 +5,10 @@ defmodule Memorilo.Post.Supervisor do
   """
   use DynamicSupervisor
   alias Memorilo.Post.Worker
-  alias Memorilo.Post.Shipping
+  alias Memorilo.Post.Delivery
 
-  def schedule(%Shipping{} = shipping) do
-    DynamicSupervisor.start_child(__MODULE__, {Worker, shipping})
+  def schedule(%Delivery{} = delivery) do
+    DynamicSupervisor.start_child(__MODULE__, {Worker, delivery})
   end
 
   def start_link(state) do
