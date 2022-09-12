@@ -17,7 +17,7 @@ defmodule MemoriloWeb.Router do
   scope "/", MemoriloWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", DeliveryLive
   end
 
   # Other scopes may use custom stacks.

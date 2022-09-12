@@ -1,0 +1,20 @@
+<.form let={f} for={@changeset} url="#" phx-submit="schedule">
+    <%= label f, :assunto %>
+    <%= text_input f, :subject %>
+    <%= error_tag f, :subject %>
+
+    <%= label f, :mensagem %>
+    <%= textarea f, :content %>
+    <%= error_tag f, :content %>
+
+    <%= label f, :para %>
+    <%= email_input f, :to %>
+    <%= error_tag f, :to %>
+    <%= label f, :quando %>
+    <%= datetime_local_input f, :delivery_time %>
+    <%= error_tag f, :delivery_time %>
+    <%= submit "Agendar Envio", phx_disable_with: "Agendando..." %>
+</.form>
+<div>
+    último enviado: <%= @subject %>
+</div>
