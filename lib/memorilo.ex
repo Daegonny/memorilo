@@ -9,17 +9,8 @@ defmodule Memorilo do
 
   alias Memorilo.Post.Supervisor
   alias Memorilo.Post.Delivery
-  @one_minute 1 * 60
 
-  def schedule_message(subject, content, to) do
-    with {:ok, now} <- DateTime.now(default_time_zone()),
-      delivery_time <- DateTime.add(now, @one_minute, :second),
-      delivery <- Delivery.new(subject, content, to, delivery_time) do
+  def schedule_message(%Delivery{} = delivery) do
       Supervisor.schedule(delivery)
-    end
-  end
-
-  defp default_time_zone do
-    Application.get_env(:memorilo, :default_time_zone)
   end
 end

@@ -4,10 +4,13 @@ defmodule Memorilo.Mail.Mailer do
   import Swoosh.Email
   alias Memorilo.Service.GoogleApi
 
-  def build_message(to, subject, content) do
+  @name "Memorilo"
+  @email "memorilo.app@gmail.com"
+
+  def build_message(subject, content, to) do
     new()
     |> to(to)
-    |> from({"Memorilo", "memorilo.app@gmail.com"})
+    |> from({@name, @email})
     |> subject(subject)
     |> text_body(content)
   end
