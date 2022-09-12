@@ -1,4 +1,4 @@
-defmodule Memorilo.Post.Utils do
+defmodule Memorilo.TimeUtils do
   @moduledoc """
   Contains util functions for worker
   """
@@ -14,13 +14,17 @@ defmodule Memorilo.Post.Utils do
     end
   end
 
-  defp extract_date_and_time(naive_date_time) do
+  @spec local_now() :: DateTime.t()
+  def local_now(), do:
+    DateTime.now!(default_time_zone())
+
+  def extract_date_and_time(naive_date_time) do
     date = NaiveDateTime.to_date(naive_date_time)
     time = NaiveDateTime.to_time(naive_date_time)
     {:ok, %{date: date, time: time}}
   end
 
-  defp default_time_zone do
+  def default_time_zone do
     Application.get_env(:memorilo, :default_time_zone)
   end
 end
