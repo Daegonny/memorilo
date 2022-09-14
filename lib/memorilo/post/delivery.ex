@@ -7,10 +7,10 @@ defmodule Memorilo.Post.Delivery do
   alias Memorilo.TimeUtils
 
   embedded_schema do
-    field :subject, :string
-    field :content, :string
-    field :to, :string
-    field :delivery_time, :naive_datetime
+    field(:subject, :string)
+    field(:content, :string)
+    field(:to, :string)
+    field(:delivery_time, :naive_datetime)
   end
 
   @fields [:subject, :content, :to, :delivery_time]
@@ -31,12 +31,15 @@ defmodule Memorilo.Post.Delivery do
     |> Map.put(:action, :insert)
   end
 
-  defp validate_delivery_time(%Ecto.Changeset{changes: %{delivery_time: delivery_time}} = changeset) do
+  defp validate_delivery_time(
+         %Ecto.Changeset{changes: %{delivery_time: delivery_time}} = changeset
+       ) do
     {:ok, %{date: date, time: time}} = TimeUtils.extract_date_and_time(delivery_time)
     {:ok, local_delivery_time} = DateTime.new(date, time, TimeUtils.default_time_zone())
+
     case DateTime.compare(local_delivery_time, TimeUtils.local_now()) do
       :lt -> add_error(changeset, :delivery_time, "Delivery date is in past.")
-       _ -> changeset
+      _ -> changeset
     end
   end
 

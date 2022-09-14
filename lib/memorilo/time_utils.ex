@@ -8,15 +8,14 @@ defmodule Memorilo.TimeUtils do
 
   def compute_waiting_time_in_ms(date_time, time_zone) do
     with {:ok, %{date: date, time: time}} <- extract_date_and_time(date_time),
-    {:ok, deadline} <- DateTime.new(date, time, time_zone),
-    {:ok, now} <- DateTime.now(time_zone) do
+         {:ok, deadline} <- DateTime.new(date, time, time_zone),
+         {:ok, now} <- DateTime.now(time_zone) do
       DateTime.diff(deadline, now, :millisecond)
     end
   end
 
   @spec local_now() :: DateTime.t()
-  def local_now(), do:
-    DateTime.now!(default_time_zone())
+  def local_now(), do: DateTime.now!(default_time_zone())
 
   def extract_date_and_time(naive_date_time) do
     date = NaiveDateTime.to_date(naive_date_time)

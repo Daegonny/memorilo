@@ -11,6 +11,6 @@ defmodule Memorilo do
   alias Memorilo.Post.Delivery
 
   def schedule_message(%Delivery{} = delivery) do
-      Supervisor.schedule(delivery)
+    Supervisor.schedule(delivery)
   end
 end

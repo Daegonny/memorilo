@@ -26,7 +26,10 @@ defmodule Memorilo.Post.Worker do
     {:noreply, delivery}
   end
 
-  def handle_info({:deliver, %Delivery{subject: subject, content: content, to: to} = delivery}, _state) do
+  def handle_info(
+        {:deliver, %Delivery{subject: subject, content: content, to: to} = delivery},
+        _state
+      ) do
     message = Mailer.build_message(subject, content, to)
     Mailer.send(message)
     Logger.info("#{inspect(self())} sends #{inspect(delivery)}")

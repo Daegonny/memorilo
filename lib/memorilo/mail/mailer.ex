@@ -14,7 +14,8 @@ defmodule Memorilo.Mail.Mailer do
     |> subject(subject)
     |> text_body(content)
   end
- def send(message) do
+
+  def send(message) do
     with {:ok, token} <- GoogleApi.get_fresh_token() do
       deliver(message, access_token: token)
     end
