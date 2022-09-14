@@ -47,4 +47,24 @@ if config_env() == :prod do
       port: port
     ],
     secret_key_base: secret_key_base
+
+  google_api_client_id =
+    System.get_env("GOOGLE_API_CLIENT_ID") ||
+      raise "environment variable GOOGLE_API_CLIENT_ID is missing."
+
+  google_api_client_secret =
+    System.get_env("GOOGLE_API_CLIENT_SECRET") ||
+      raise "environment variable GOOGLE_API_CLIENT_SECRET is missing."
+
+  google_api_refresh_token =
+    System.get_env("GOOGLE_API_REFRESH_TOKEN") ||
+      raise "environment variable GOOGLE_API_REFRESH_TOKEN is missing."
+
+  config :memorilo, :google_api,
+    base_url: "https://www.googleapis.com/oauth2/v4",
+    route: "/token",
+    client_id: google_api_client_id,
+    client_secret: google_api_client_secret,
+    refresh_token: google_api_refresh_token,
+    grant_type: "refresh_token"
 end
