@@ -8,7 +8,7 @@ MIX_ENV=prod mix compile
 
 # Compile assets
 npm install --prefix ./assets
-mix assets.deploy
+MIX_ENV=prod mix assets.deploy
 mix phx.digest
 
 # Build the release and overwrite the existing release directory
