@@ -15,6 +15,8 @@
     <%= error_tag f, :delivery_time %>
     <%= submit "Agendar Envio", phx_disable_with: "Agendando..." %>
 </.form>
-<div>
-    último enviado: <%= @subject %>
-</div>
+<%= if @subject do %>
+    <div>
+        último enviado: <%= @subject %>
+    </div>
+<% end %>
