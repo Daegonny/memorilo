@@ -29,3 +29,5 @@ memorilo-*.tar
 /config/test.exs
 email.txt
 client_secret.json
+
+assets/node_modules
