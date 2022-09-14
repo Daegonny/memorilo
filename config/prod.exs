@@ -47,3 +47,6 @@ config :logger, level: :info
 #       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
+config :memorilo, MemoriloWeb.Endpoint,
+  url: [host: System.get_env("RENDER_EXTERNAL_HOSTNAME") || "localhost", port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json"
