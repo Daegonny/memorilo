@@ -18,10 +18,8 @@ defmodule Memorilo.Post.Delivery do
   def changeset(delivery, params \\ %{}) do
     delivery
     |> cast(params, @fields)
-    |> validate_required(@fields)
-    |> validate_length(:subject, min: 2)
-    |> validate_length(:content, min: 2)
-    |> validate_format(:to, ~r/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+    |> validate_required(@fields, message: "campo obrigatório")
+    |> validate_format(:to, ~r/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, message: "formato inválido")
     |> validate_delivery_time()
   end
 
