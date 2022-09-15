@@ -33,6 +33,7 @@ if config_env() == :prod do
       """
 
   config :memorilo, MemoriloWeb.Endpoint,
+    server: true,
     url: [host: System.get_env("RENDER_EXTERNAL_HOSTNAME") || "localhost", port: 80],
     cache_static_manifest: "priv/static/cache_manifest.json",
     secret_key_base: secret_key_base
