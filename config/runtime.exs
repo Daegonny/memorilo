@@ -33,8 +33,15 @@ if config_env() == :prod do
       """
 
   config :memorilo, MemoriloWeb.Endpoint,
-    server: true,
     url: [host: System.get_env("RENDER_EXTERNAL_HOSTNAME") || "localhost", port: 80],
+    http: [
+      # Enable IPv6 and bind on all interfaces.
+      # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
+      # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
+      # for details about using IPv6 vs IPv4 and loopback vs public addresses.
+      ip: {0, 0, 0, 0, 0, 0, 0, 0},
+      port: String.to_integer(System.get_env("PORT") || "4000")
+    ],
     cache_static_manifest: "priv/static/cache_manifest.json",
     secret_key_base: secret_key_base
 
@@ -57,4 +64,6 @@ if config_env() == :prod do
     client_secret: google_api_client_secret,
     refresh_token: google_api_refresh_token,
     grant_type: "refresh_token"
+
+    config :phoenix_hello, PhoenixHelloWeb.Endpoint, server: true
 end
